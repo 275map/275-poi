@@ -40,3 +40,9 @@ function poi_category_init() {
 
 }
 add_action( 'init', 'poi_category_init' );
+
+function poi_category_rewrite_flush() {
+    poi_category_init();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'poi_category_rewrite_flush' );

@@ -3,7 +3,8 @@
     "prefer-stable": true,
     "require": {
         "miya/gh-auto-updater": "^1.0",
-        "miya/custom-field-map": "dev-master"
+        "miya/custom-field-map": "dev-master",
+        "miya/custom-field-geometry": "dev-master"
     },
     "autoload": {
         "files": [

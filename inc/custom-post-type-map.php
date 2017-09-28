@@ -59,3 +59,9 @@ function map_updated_messages( $messages ) {
 	return $messages;
 }
 add_filter( 'post_updated_messages', 'map_updated_messages' );
+
+function map_rewrite_flush() {
+    map_init();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'map_rewrite_flush' );

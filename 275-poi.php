@@ -24,5 +24,8 @@ add_action( 'init', function() {
 	new \Miya\WP\GH_Auto_Updater( $plugin_slug, $gh_user, $gh_repo );
 } );
 
-$map = new \Miya\WP\Custom_Field\Map( 'map', 'Latitude and Longitude' );
+$map = new \Miya\WP\Custom_Field\Map( 'poi', 'Marker', array( 'priority' => 'high' ) );
 $map->add( 'poi' );
+
+$map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array( 'priority' => 'high' ) );
+$map->add( 'map' );

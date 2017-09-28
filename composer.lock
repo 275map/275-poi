@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2846a9e551c842546173ed53fcda1533",
+    "content-hash": "e6625a48c74fc2def198614caf3cde5e",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -79,6 +79,41 @@
                 }
             ],
             "time": "2017-09-27T12:22:15+00:00"
+        },
+        {
+            "name": "miya/custom-field-geometry",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/miya0001/custom-field-geometry.git",
+                "reference": "50acd70842984d8cd04d4ede9da93cdf3bde0c02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/miya0001/custom-field-geometry/zipball/50acd70842984d8cd04d4ede9da93cdf3bde0c02",
+                "reference": "50acd70842984d8cd04d4ede9da93cdf3bde0c02",
+                "shasum": ""
+            },
+            "require": {
+                "miya/custom-field": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Miya\\WP\\Custom_Field\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL v2"
+            ],
+            "authors": [
+                {
+                    "name": "Takayuki Miyauchi",
+                    "email": "miya0001@users.noreply.github.com"
+                }
+            ],
+            "time": "2017-09-28T10:59:16+00:00"
         },
         {
             "name": "miya/custom-field-map",
@@ -158,7 +193,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "miya/custom-field-map": 20
+        "miya/custom-field-map": 20,
+        "miya/custom-field-geometry": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

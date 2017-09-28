@@ -59,3 +59,9 @@ function poi_updated_messages( $messages ) {
 	return $messages;
 }
 add_filter( 'post_updated_messages', 'poi_updated_messages' );
+
+function poi_rewrite_flush() {
+    poi_init();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'poi_rewrite_flush' );

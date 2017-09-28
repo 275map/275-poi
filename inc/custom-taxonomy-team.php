@@ -2,11 +2,11 @@
 
 function team_init() {
 	register_taxonomy( 'team', array( 'poi', 'map' ), array(
-		'hierarchical'      => true,
+		'hierarchical'      => false,
 		'public'            => true,
 		'show_in_nav_menus' => true,
 		'show_ui'           => true,
-		'show_admin_column' => false,
+		'show_admin_column' => true,
 		'query_var'         => true,
 		'rewrite'           => true,
 		'capabilities'      => array(
@@ -40,3 +40,9 @@ function team_init() {
 
 }
 add_action( 'init', 'team_init' );
+
+function team_rewrite_flush() {
+    team_init();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'team_rewrite_flush' );

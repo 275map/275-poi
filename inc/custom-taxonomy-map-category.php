@@ -40,3 +40,9 @@ function map_category_init() {
 
 }
 add_action( 'init', 'map_category_init' );
+
+function map_category_rewrite_flush() {
+    map_category_init();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'map_category_rewrite_flush' );
