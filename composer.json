@@ -1,0 +1,16 @@
+{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "miya/gh-auto-updater": "^1.0",
+        "miya/custom-field-map": "dev-master"
+    },
+    "autoload": {
+        "files": [
+          "inc/custom-post-type-map.php",
+          "inc/custom-post-type-poi.php",
+          "inc/custom-taxonomy-map-category.php",
+          "inc/custom-taxonomy-team.php"
+        ]
+    }
+}
