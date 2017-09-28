@@ -86,12 +86,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/custom-field-map.git",
-                "reference": "ad247bc8c3b4b35bcc88020e7c3466c36a31dac5"
+                "reference": "31de6a84269fa6594e32fa2026f4d27571d41431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/custom-field-map/zipball/ad247bc8c3b4b35bcc88020e7c3466c36a31dac5",
-                "reference": "ad247bc8c3b4b35bcc88020e7c3466c36a31dac5",
+                "url": "https://api.github.com/repos/miya0001/custom-field-map/zipball/31de6a84269fa6594e32fa2026f4d27571d41431",
+                "reference": "31de6a84269fa6594e32fa2026f4d27571d41431",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                     "email": "miya0001@users.noreply.github.com"
                 }
             ],
-            "time": "2017-09-27T16:47:58+00:00"
+            "time": "2017-09-28T14:21:36+00:00"
         },
         {
             "name": "miya/gh-auto-updater",

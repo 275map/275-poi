@@ -1,7 +1,7 @@
 <?php
 
 function map_category_init() {
-	register_taxonomy( 'map-category', array( 'poi', 'map' ), array(
+	register_taxonomy( 'map-category', array( 'map' ), array(
 		'hierarchical'      => true,
 		'public'            => true,
 		'show_in_nav_menus' => true,
