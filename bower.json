@@ -1,0 +1,22 @@
+{
+  "name": "275-poi",
+  "description": "",
+  "main": "",
+  "authors": [
+    "miya0001 <miya@wpist.me>"
+  ],
+  "license": "GPL",
+  "homepage": "https://github.com/275map/275-poi",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "riot": "^3.7.2",
+    "leaflet": "^1.2.0"
+  }
+}

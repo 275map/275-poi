@@ -27,5 +27,70 @@ add_action( 'init', function() {
 $map = new \Miya\WP\Custom_Field\Map( 'poi', 'Marker', array( 'priority' => 'high' ) );
 $map->add( 'poi' );
 
-$map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array( 'priority' => 'high' ) );
+$map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
+	'priority' => 'high',
+	'lat' => 0,
+	'lng' => 0,
+	'zoom' => 1,
+	'layers' => array(
+		array(
+			'name' => 'Open Street Map',
+			'tile' => 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+			'attribution' => 'OpenStreetMap Contributers',
+			'attribution_url' => 'http://osm.org/copyright',
+		),
+	),
+	'controls' => array(
+		'circle' => false,
+		'circlemarker' => false,
+		'marker' => false,
+	),
+) );
 $map->add( 'map' );
+
+add_action( 'wp_enqueue_scripts', function() {
+	wp_enqueue_script(
+		'riot',
+		plugins_url( 'lib/riot/riot+compiler.min.js', __FILE__ ),
+		array(),
+		false,
+		true
+	);
+	wp_enqueue_script(
+		'leaflet',
+		plugins_url( 'lib/leaflet/dist/leaflet.js', __FILE__ ),
+		array(),
+		false,
+		true
+	);
+	wp_enqueue_script(
+		'app',
+		plugins_url( 'js/app.js', __FILE__ ),
+		array( 'jquery', 'riot', 'leaflet' ),
+		false,
+		true
+	);
+	wp_enqueue_style(
+		'leaflet',
+		plugins_url( 'lib/leaflet/dist/leaflet.css', __FILE__ ),
+		array(),
+		false
+	);
+ } );
+
+ add_filter( 'the_content', function( $content ) {
+	if ( 'poi' === get_post_type() ) {
+		$meta = get_post_meta( get_the_ID(), 'poi', true );
+		$path = plugins_url( 'tags', __FILE__ );
+		$content .=<<<EOL
+			<div><street-view data-lat="{$meta['lat']}"
+					data-lng="{$meta['lng']}" data-key="AIzaSyCLl8lQB-ooWkYTvhTlgh5A393rSivVcwk"></street-view></div>
+			<div style="width: 100%; height: 300px;"><osm data-lat="{$meta['lat']}" data-lng="{$meta['lng']}"
+					data-zoom="{$meta['zoom']}"></osm></div>
+			<script src="{$path}/street-view.tag" type="riot/tag"></script>
+			<script src="{$path}/osm.tag" type="riot/tag"></script>
+EOL;
+	}
+
+	return $content;
+ } );
