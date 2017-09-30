@@ -57,7 +57,7 @@ add_filter( 'the_content', function( $content ) {
 	if ( 'poi' === get_post_type() ) {
 		$content .= poi_get_single_map( get_the_ID() ) . poi_get_street_view( get_the_ID() );
 	} elseif ( 'map' === get_post_type() ) {
-		$cats = poi_get_terms();
+		$cats = poi_get_terms( get_the_ID() );
 		$map = poi_get_map( get_the_ID() );
 		$content = $cats . $map . $content;
 	}

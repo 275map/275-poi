@@ -35,37 +35,44 @@
 		} );
 	}
 
-	if ( opts.dataApi ) {
-		console.log( opts.dataApi );
-		jQuery.getJSON( opts.dataApi, function( data ) {
-			for ( var i = 0; i < data.length; i++ ) {
-				var link = data[i].link;
-				var icon = new L.Icon( {
-					iconUrl: data[i].poi.marker,
-					shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-					iconSize: [25, 41],
-					iconAnchor: [12, 41],
-					popupAnchor: [1, -34],
-					shadowSize: [41, 41]
-				} )
+	if ( opts.dataEndPoint ) {
+		var api = opts.dataEndPoint
+		if ( opts.dataTeam ) {
+			api = api + '&filter[team]=' + opts.dataTeam;
+		}
+		if ( opts.dataTerm ) {
+			api = api + '&filter[poi-category]=' + opts.dataTerm;
 
-				var div = jQuery( '<div />' );
-				var a = jQuery( '<a />' );
-				var strong = jQuery( '<strong />' )
-				strong.text( data[i].title.rendered );
-				div.append( a )
-				a.append( strong )
-				a.attr( 'href', data[i].link )
-				if ( data[i]._embedded["wp:featuredmedia"] ) {
-					var img = jQuery( '<img />' ).attr( 'src', data[i]._embedded["wp:featuredmedia"][0].source_url )
-					a.append( img )
+			jQuery.getJSON( api, function( data ) {
+				for ( var i = 0; i < data.length; i++ ) {
+					var link = data[i].link;
+					var icon = new L.Icon( {
+						iconUrl: data[i].poi.marker,
+						shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+						iconSize: [25, 41],
+						iconAnchor: [12, 41],
+						popupAnchor: [1, -34],
+						shadowSize: [41, 41]
+					} )
+
+					var div = jQuery( '<div />' );
+					var a = jQuery( '<a />' );
+					var strong = jQuery( '<strong />' )
+					strong.text( data[i].title.rendered );
+					div.append( a )
+					a.append( strong )
+					a.attr( 'href', data[i].link )
+					if ( data[i]._embedded["wp:featuredmedia"] ) {
+						var img = jQuery( '<img />' ).attr( 'src', data[i]._embedded["wp:featuredmedia"][0].source_url )
+						a.append( img )
+					}
+
+					var marker = L.marker()
+					marker.setLatLng( [ data[i].poi.lat, data[i].poi.lng ] ).setIcon( icon )
+					.bindPopup( div.html() ).addTo(map)._leaflet_id = i;
 				}
-
-				var marker = L.marker()
-				marker.setLatLng( [ data[i].poi.lat, data[i].poi.lng ] ).setIcon( icon )
-				.bindPopup( div.html() ).addTo(map)._leaflet_id = i;
-			}
-		} );
+			} );
+		}
 	}
 
 	if ( opts.dataMarker ) {

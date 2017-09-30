@@ -27,8 +27,8 @@ if ( jQuery( '#poi-cats' ).length ) {
 				items.push( jQuery( check[i] ).val() );
 			}
 		}
-		var api = endpoint + '&filter[poi-category]=' + items.join( ',' );
-		jQuery( 'osm' ).attr( 'data-api', api );
+
+		jQuery( 'osm' ).attr( 'data-term', items.join( ',' ) );
 		riot.mount( "osm", config )
 	} )
 }

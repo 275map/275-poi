@@ -71,6 +71,10 @@ add_action( 'rest_api_init', function() {
 
 function poi_get_single_map( $post_id ) {
 	$meta = get_post_meta( $post_id, 'poi', true );
+	if ( ! $meta ) {
+		return;
+	}
+
 	$marker_color = get_post_meta( $post_id, 'marker-color', true );
 	if ( ! $marker_color ) {
 		$marker_color = 'blue';
@@ -93,6 +97,9 @@ EOL;
 
 function poi_get_map( $post_id ) {
 	$meta = get_post_meta( $post_id, 'geo', true );
+	if ( ! $meta ) {
+		return;
+	}
 
 	$path = esc_url( plugins_url( 'tags', dirname( __FILE__ ) ) );
 	$lat = esc_attr( $meta['lat'] );
@@ -100,23 +107,36 @@ function poi_get_map( $post_id ) {
 	$zoom = esc_attr( $meta['zoom'] );
 	$geojson = esc_attr( $meta['geojson'] );
 
+	$endpoint = home_url() . "/wp-json/wp/v2/poi?_embed";
+
+	$geojson = sprintf(
+		home_url() . "/wp-json/wp/v2/map/%s",
+		$post_id
+	);
+
 	$terms = get_the_terms( $post_id, 'team' );
-	$team = $terms[0]->slug;
+	$team_query = '';
+	if ( $terms && is_array( $terms ) ) {
+		$term_list = array();
+		foreach ( $terms as $t ) {
+			$term_list[] = $t->slug;
+		}
+		$team_query = join( ',', $term_list );
+	}
 
-	$endpoint = esc_url( sprintf(
-		home_url() . "/wp-json/wp/v2/poi?_embed&filter[team]=%s",
-		$team
-	) );
-
-	$geojson = esc_url( sprintf(
-		home_url() . "/wp-json/wp/v2/map/" . $post_id,
-		$team
-	) );
+	$terms = get_the_terms( $post_id, 'poi-category' );
+	$term_query = '';
+	if ( $terms && is_array( $terms ) ) {
+		$term_list = array();
+		foreach ( $terms as $t ) {
+			$term_list[] = $t->slug;
+		}
+		$term_query = join( ',', $term_list );
+	}
 
 	$map =<<<EOL
-		<div style="width: 100%; height: 300px; margin: 1em 0;"><osm data-lat="{$lat}" data-lng="{$lng}" data-zoom="{$zoom}" data-api="{$endpoint}" data-geo-json="{$geojson}"></osm></div>
+		<div style="width: 100%; height: 300px; margin: 1em 0;"><osm data-lat="{$lat}" data-lng="{$lng}" data-zoom="{$zoom}" data-end-point="{$endpoint}" data-geo-json="{$geojson}" data-team="{$team_query}" data-term="{$term_query}"></osm></div>
 		<script src="{$path}/osm.tag" type="riot/tag"></script>
-		<script>var endpoint = '{$endpoint}';</script>
 EOL;
 
 	return $map;
@@ -124,6 +144,9 @@ EOL;
 
 function poi_get_street_view( $post_id ) {
 	$meta = get_post_meta( $post_id, 'poi', true );
+	if ( ! $meta ) {
+		return;
+	}
 
 	$path = esc_url( plugins_url( 'tags', dirname( __FILE__ ) ) );
 	$lat = esc_attr( $meta['lat'] );
@@ -202,15 +225,14 @@ function poi_load_js() {
 	);
 }
 
-function poi_get_terms() {
-	$terms = get_terms( 'poi-category' );
+function poi_get_terms( $post_id ) {
+	$terms = get_the_terms( $post_id, 'poi-category' );
 	$item = array();
 	foreach ( $terms as $term ) {
 		$item[] = sprintf(
-			'<label><input type="checkbox" value="%1$s"> %2$s (%3$d)</label>',
+			'<label><input type="checkbox" value="%1$s" checked> %2$s</label>',
 			esc_attr( $term->slug ),
-			esc_html( $term->name ),
-			intval( $term->count )
+			esc_html( $term->name )
 		);
 	}
 
