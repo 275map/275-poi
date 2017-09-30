@@ -199,32 +199,14 @@ add_action( 'plugins_loaded', function() {
 
 function poi_load_js() {
 	wp_enqueue_script(
-		'riot',
-		plugins_url( 'lib/riot/riot+compiler.min.js', dirname( __FILE__ ) ),
-		array(),
-		false,
-		true
-	);
-	wp_enqueue_script(
-		'leaflet',
-		plugins_url( 'lib/leaflet/dist/leaflet.js', dirname( __FILE__ ) ),
-		array(),
-		false,
-		true
-	);
-	wp_enqueue_script(
 		'app',
 		plugins_url( 'js/app.js', dirname( __FILE__ ) ),
 		array( 'jquery', 'riot', 'leaflet' ),
 		false,
 		true
 	);
-	wp_enqueue_style(
-		'leaflet',
-		plugins_url( 'lib/leaflet/dist/leaflet.css', dirname( __FILE__ ) ),
-		array(),
-		false
-	);
+
+	wp_enqueue_style( 'leaflet' );
 }
 
 function poi_get_terms( $post_id ) {
