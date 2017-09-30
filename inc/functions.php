@@ -132,6 +132,8 @@ function poi_get_map( $post_id ) {
 			$term_list[] = $t->slug;
 		}
 		$term_query = join( ',', $term_list );
+	} else {
+		return '<p style="color: #ff0000;">POI カテゴリーを最低でもひとつは選択してください。</p>';
 	}
 
 	$map =<<<EOL
@@ -227,14 +229,16 @@ function poi_load_js() {
 
 function poi_get_terms( $post_id ) {
 	$terms = get_the_terms( $post_id, 'poi-category' );
-	$item = array();
-	foreach ( $terms as $term ) {
-		$item[] = sprintf(
-			'<label><input type="checkbox" value="%1$s" checked> %2$s</label>',
-			esc_attr( $term->slug ),
-			esc_html( $term->name )
-		);
-	}
+	if ( $terms ) {
+		$item = array();
+		foreach ( $terms as $term ) {
+			$item[] = sprintf(
+				'<label><input type="checkbox" value="%1$s" checked> %2$s</label>',
+				esc_attr( $term->slug ),
+				esc_html( $term->name )
+			);
+		}
 
-	return sprintf( '<div id="poi-cats">%s</div>', join( '&nbsp;&nbsp;', $item ) );
+		return sprintf( '<div id="poi-cats">%s</div>', join( '&nbsp;&nbsp;', $item ) );
+	}
 }
