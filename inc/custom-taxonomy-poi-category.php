@@ -1,7 +1,7 @@
 <?php
 
 function poi_category_init() {
-	register_taxonomy( 'poi-category', array( 'poi' ), array(
+	register_taxonomy( 'poi-category', array( 'poi', 'map' ), array(
 		'hierarchical'      => true,
 		'public'            => true,
 		'show_in_nav_menus' => true,
@@ -10,9 +10,9 @@ function poi_category_init() {
 		'query_var'         => true,
 		'rewrite'           => true,
 		'capabilities'      => array(
-			'manage_terms'  => 'edit_posts',
-			'edit_terms'    => 'edit_posts',
-			'delete_terms'  => 'edit_posts',
+			'manage_terms'  => 'manage_categories',
+			'edit_terms'    => 'manage_categories',
+			'delete_terms'  => 'manage_categories',
 			'assign_terms'  => 'edit_posts'
 		),
 		'labels'            => array(

@@ -15,5 +15,20 @@ var config = {
 	]
 }
 
-riot.mount( "street-view", config )
-riot.mount( "osm", config )
+var stv = riot.mount( "street-view", config )
+var osm = riot.mount( "osm", config )
+
+if ( jQuery( '#poi-cats' ).length ) {
+	jQuery( '#poi-cats input[type=checkbox]' ).on( 'click', function() {
+		var check = jQuery( '#poi-cats input[type=checkbox]' );
+		var items = [];
+		for ( var i = 0; i < check.length; i++ ) {
+			if ( 'checked' === jQuery( check[i] ).attr( 'checked' ) ) {
+				items.push( jQuery( check[i] ).val() );
+			}
+		}
+		var api = endpoint + '&filter[poi-category]=' + items.join( ',' );
+		jQuery( 'osm' ).attr( 'data-api', api );
+		riot.mount( "osm", config )
+	} )
+}

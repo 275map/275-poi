@@ -21,7 +21,7 @@ function map_init() {
 		'hierarchical'      => false,
 		'show_ui'           => true,
 		'show_in_nav_menus' => true,
-		'supports'          => array( 'title', 'editor', 'thumbnail', 'author' ),
+		'supports'          => array( 'title', 'editor', 'thumbnail' ),
 		'has_archive'       => true,
 		'rewrite'           => true,
 		'query_var'         => true,

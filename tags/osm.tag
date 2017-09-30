@@ -1,6 +1,5 @@
 <osm>
 <script>
-	// var Clipboard = require( 'clipboard' )
 	var div = document.createElement( 'div' )
 	this.root.appendChild( div )
 	div.style.width = '100%'
@@ -37,6 +36,7 @@
 	}
 
 	if ( opts.dataApi ) {
+		console.log( opts.dataApi );
 		jQuery.getJSON( opts.dataApi, function( data ) {
 			for ( var i = 0; i < data.length; i++ ) {
 				var link = data[i].link;
@@ -49,11 +49,21 @@
 					shadowSize: [41, 41]
 				} )
 
+				var div = jQuery( '<div />' );
+				var a = jQuery( '<a />' );
+				var strong = jQuery( '<strong />' )
+				strong.text( data[i].title.rendered );
+				div.append( a )
+				a.append( strong )
+				a.attr( 'href', data[i].link )
+				if ( data[i]._embedded["wp:featuredmedia"] ) {
+					var img = jQuery( '<img />' ).attr( 'src', data[i]._embedded["wp:featuredmedia"][0].source_url )
+					a.append( img )
+				}
+
 				var marker = L.marker()
 				marker.setLatLng( [ data[i].poi.lat, data[i].poi.lng ] ).setIcon( icon )
-				.on( 'click', function( e ) {
-					window.location = data[e.target._leaflet_id].link;
-				} ).addTo(map)._leaflet_id = i;
+				.bindPopup( div.html() ).addTo(map)._leaflet_id = i;
 			}
 		} );
 	}

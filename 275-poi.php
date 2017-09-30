@@ -55,30 +55,11 @@ add_action( 'wp_enqueue_scripts', 'poi_load_js' );
 
 add_filter( 'the_content', function( $content ) {
 	if ( 'poi' === get_post_type() ) {
-		$meta = get_post_meta( get_the_ID(), 'poi', true );
-		$marker_color = get_post_meta( get_the_ID(), 'marker-color', true );
-		if ( ! $marker_color ) {
-			$marker_color = 'blue';
-		}
-		$images = Color_Marker::icon_images();
-
-		$marker = esc_url( $images[$marker_color] );
-		$path = esc_url( plugins_url( 'tags', __FILE__ ) );
-		$lat = esc_attr( $meta['lat'] );
-		$lng = esc_attr( $meta['lng'] );
-		$zoom = esc_attr( $meta['zoom'] );
-
-		$content .=<<<EOL
-			<div><street-view data-lat="{$lat}"
-					data-lng="{$lng}" data-key="AIzaSyCLl8lQB-ooWkYTvhTlgh5A393rSivVcwk"></street-view></div>
-			<div style="width: 100%; height: 300px;"><osm data-lat="{$lat}" data-lng="{$lng}"
-					data-zoom="{$zoom}" data-marker="{$marker}"></osm></div>
-			<script src="{$path}/street-view.tag" type="riot/tag"></script>
-			<script src="{$path}/osm.tag" type="riot/tag"></script>
-EOL;
+		$content .= poi_get_single_map( get_the_ID() ) . poi_get_street_view( get_the_ID() );
 	} elseif ( 'map' === get_post_type() ) {
+		$cats = poi_get_terms();
 		$map = poi_get_map( get_the_ID() );
-		$content = $map . $content;
+		$content = $cats . $map . $content;
 	}
 
 	return $content;

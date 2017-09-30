@@ -2,7 +2,7 @@
 
 function team_init() {
 	register_taxonomy( 'team', array( 'poi', 'map' ), array(
-		'hierarchical'      => false,
+		'hierarchical'      => true,
 		'public'            => true,
 		'show_in_nav_menus' => true,
 		'show_ui'           => true,
@@ -10,9 +10,9 @@ function team_init() {
 		'query_var'         => true,
 		'rewrite'           => true,
 		'capabilities'      => array(
-			'manage_terms'  => 'edit_posts',
-			'edit_terms'    => 'edit_posts',
-			'delete_terms'  => 'edit_posts',
+			'manage_terms'  => 'manage_categories',
+			'edit_terms'    => 'manage_categories',
+			'delete_terms'  => 'manage_categories',
 			'assign_terms'  => 'edit_posts'
 		),
 		'labels'            => array(
