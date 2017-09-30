@@ -24,7 +24,10 @@ add_action( 'init', function() {
 	new \Miya\WP\GH_Auto_Updater( $plugin_slug, $gh_user, $gh_repo );
 } );
 
-$map = new \Miya\WP\Custom_Field\Map( 'poi', 'Marker', array( 'priority' => 'high' ) );
+$map = new \Miya\WP\Custom_Field\Map( 'poi', 'Map', array( 'priority' => 'high' ) );
+$map->add( 'poi' );
+
+$map = new Color_Marker( 'marker-color', 'Marker' );
 $map->add( 'poi' );
 
 $map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
@@ -48,49 +51,35 @@ $map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 ) );
 $map->add( 'map' );
 
-add_action( 'wp_enqueue_scripts', function() {
-	wp_enqueue_script(
-		'riot',
-		plugins_url( 'lib/riot/riot+compiler.min.js', __FILE__ ),
-		array(),
-		false,
-		true
-	);
-	wp_enqueue_script(
-		'leaflet',
-		plugins_url( 'lib/leaflet/dist/leaflet.js', __FILE__ ),
-		array(),
-		false,
-		true
-	);
-	wp_enqueue_script(
-		'app',
-		plugins_url( 'js/app.js', __FILE__ ),
-		array( 'jquery', 'riot', 'leaflet' ),
-		false,
-		true
-	);
-	wp_enqueue_style(
-		'leaflet',
-		plugins_url( 'lib/leaflet/dist/leaflet.css', __FILE__ ),
-		array(),
-		false
-	);
- } );
+add_action( 'wp_enqueue_scripts', 'poi_load_js' );
 
- add_filter( 'the_content', function( $content ) {
+add_filter( 'the_content', function( $content ) {
 	if ( 'poi' === get_post_type() ) {
 		$meta = get_post_meta( get_the_ID(), 'poi', true );
-		$path = plugins_url( 'tags', __FILE__ );
+		$marker_color = get_post_meta( get_the_ID(), 'marker-color', true );
+		if ( ! $marker_color ) {
+			$marker_color = 'blue';
+		}
+		$images = Color_Marker::icon_images();
+
+		$marker = esc_url( $images[$marker_color] );
+		$path = esc_url( plugins_url( 'tags', __FILE__ ) );
+		$lat = esc_attr( $meta['lat'] );
+		$lng = esc_attr( $meta['lng'] );
+		$zoom = esc_attr( $meta['zoom'] );
+
 		$content .=<<<EOL
-			<div><street-view data-lat="{$meta['lat']}"
-					data-lng="{$meta['lng']}" data-key="AIzaSyCLl8lQB-ooWkYTvhTlgh5A393rSivVcwk"></street-view></div>
-			<div style="width: 100%; height: 300px;"><osm data-lat="{$meta['lat']}" data-lng="{$meta['lng']}"
-					data-zoom="{$meta['zoom']}"></osm></div>
+			<div><street-view data-lat="{$lat}"
+					data-lng="{$lng}" data-key="AIzaSyCLl8lQB-ooWkYTvhTlgh5A393rSivVcwk"></street-view></div>
+			<div style="width: 100%; height: 300px;"><osm data-lat="{$lat}" data-lng="{$lng}"
+					data-zoom="{$zoom}" data-marker="{$marker}"></osm></div>
 			<script src="{$path}/street-view.tag" type="riot/tag"></script>
 			<script src="{$path}/osm.tag" type="riot/tag"></script>
 EOL;
+	} elseif ( 'map' === get_post_type() ) {
+		$map = poi_get_map( get_the_ID() );
+		$content = $map . $content;
 	}
 
 	return $content;
- } );
+} );

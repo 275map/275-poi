@@ -86,12 +86,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/custom-field-geometry.git",
-                "reference": "50acd70842984d8cd04d4ede9da93cdf3bde0c02"
+                "reference": "98166b3b68ba26b5885f2c86f7ed59b1c81772fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/custom-field-geometry/zipball/50acd70842984d8cd04d4ede9da93cdf3bde0c02",
-                "reference": "50acd70842984d8cd04d4ede9da93cdf3bde0c02",
+                "url": "https://api.github.com/repos/miya0001/custom-field-geometry/zipball/98166b3b68ba26b5885f2c86f7ed59b1c81772fa",
+                "reference": "98166b3b68ba26b5885f2c86f7ed59b1c81772fa",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                     "email": "miya0001@users.noreply.github.com"
                 }
             ],
-            "time": "2017-09-28T10:59:16+00:00"
+            "time": "2017-09-30T02:58:29+00:00"
         },
         {
             "name": "miya/custom-field-map",
