@@ -60,34 +60,11 @@ add_action( 'rest_api_init', function() {
 } );
 
 function poi_get_single_map( $post_id ) {
-	$meta = get_post_meta( $post_id, 'poi', true );
-	if ( ! $meta ) {
-		return;
-	}
-
-	$marker_color = get_post_meta( $post_id, 'marker-color', true );
-	if ( ! $marker_color ) {
-		$marker_color = 'blue';
-	}
-	$images = Color_Marker::icon_images();
-
-	$marker = esc_url( $images[$marker_color] );
-	$path = esc_url( plugins_url( 'tags', dirname( __FILE__ ) ) );
-	$lat = esc_attr( $meta['lat'] );
-	$lng = esc_attr( $meta['lng'] );
-	$zoom = esc_attr( $meta['zoom'] );
-
-	$content =<<<EOL
-		<div style="width: 100%; height: 300px; margin: 1em 0;"><osm data-lat="{$lat}" data-lng="{$lng}"
-				data-zoom="{$zoom}" data-marker="{$marker}"></osm></div>
-		<script src="{$path}/osm.tag" type="riot/tag"></script>
-EOL;
-	return $content;
+	return $GLOBALS['map']->get_map( $post_id );
 }
 
 function poi_get_map( $post_id ) {
-	global $geometry;
-	return $geometry->get_map( $post_id );
+	return $GLOBALS['geometry']->get_map( $post_id );
 }
 
 function poi_get_street_view( $post_id ) {

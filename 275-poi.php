@@ -27,8 +27,8 @@ add_action( 'init', function() {
 $map = new \Miya\WP\Custom_Field\Map( 'poi', 'Map', array( 'priority' => 'high' ) );
 $map->add( 'poi' );
 
-$map = new Color_Marker( 'marker-color', 'Marker' );
-$map->add( 'poi' );
+$marker = new Color_Marker( 'marker-color', 'Marker' );
+$marker->add( 'poi' );
 
 $geometry = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 	'priority' => 'high',
