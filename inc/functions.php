@@ -92,9 +92,10 @@ add_action( 'plugins_loaded', function() {
 		'pois',
 		'#' . home_url(). '/archives/map/.*/?$#i',
 		function( $m, $attr, $url, $rattr ) {
+			$image = plugins_url( 'img/map.png', dirname( __FILE__ ) );
 			$post_id = url_to_postid( $url );
 			if ( is_admin() ) {
-				return '<div style="width: 100%; background-color: #f5f5f5; text-align: center; padding: 40px 0;"><img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png"><br>' . esc_html( get_the_title( $post_id ) ).'</div>';
+				return '<div style="border: 1px solid #eeeeee; width: 100%; background-position: center center; background-image: url(' . $image . '); background-size: cover; text-align: center; padding: 50px 0;">' . esc_html( get_the_title( $post_id ) ).'</div>';
 			} else {
 				return poi_get_map( $post_id );
 			}
@@ -105,9 +106,10 @@ add_action( 'plugins_loaded', function() {
 		'poi',
 		'#' . home_url(). '/archives/poi/.*/?$#i',
 		function( $m, $attr, $url, $rattr ) {
+			$image = plugins_url( 'img/map.png', dirname( __FILE__ ) );
 			$post_id = url_to_postid( $url );
 			if ( is_admin() ) {
-				return '<div style="width: 100%; background-color: #f5f5f5; text-align: center; padding: 40px 0;"><img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png"><br>' . esc_html( get_the_title( $post_id ) ).'</div>';
+				return '<div style="border: 1px solid #eeeeee; width: 100%; background-position: center center; background-image: url(' . $image . '); background-size: cover; text-align: center; padding: 50px 0;">' . esc_html( get_the_title( $post_id ) ).'</div>';
 			} else {
 				$post_id = url_to_postid( $url );
 				return poi_get_single_map( $post_id );
