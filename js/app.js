@@ -7,7 +7,13 @@ var config = {
 			"attribution_url": "http://osm.org/copyright"
 		},
 		{
-			"name": "国土地理院",
+			"name": "国土地理院 (標準)",
+			"tile": "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
+			"attribution": "国土地理院",
+			"attribution_url": "http://osm.org/copyright"
+		},
+		{
+			"name": "国土地理院 (オルソ画像)",
 			"tile": "https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg",
 			"attribution": "国土地理院",
 			"attribution_url": "http://osm.org/copyright"
