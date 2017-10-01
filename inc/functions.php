@@ -73,17 +73,13 @@ function poi_get_street_view( $post_id ) {
 		return;
 	}
 
-	$path = esc_url( plugins_url( 'tags', dirname( __FILE__ ) ) );
-	$lat = esc_attr( $meta['lat'] );
-	$lng = esc_attr( $meta['lng'] );
+	$map = '<div style="margin: 1em 0;">
+			<iframe src="%s" width="100%" height="450" frameborder="0"
+			style="border:0" allowfullscreen></iframe></div>';
 
-	$map =<<<EOL
-	<div style="margin: 1em 0;"><street-view data-lat="{$lat}"
-	data-lng="{$lng}" data-key="AIzaSyCLl8lQB-ooWkYTvhTlgh5A393rSivVcwk"></street-view></div>
-	<script src="{$path}/street-view.tag" type="riot/tag"></script>
-EOL;
-
-	return $map;
+	$base = 'https://www.google.com/maps/embed/v1/streetview';
+	$params = '?key=' . G_API_KEY . '&location=' . $meta['lat'] . ',' . $meta['lng'];
+	return str_replace( '%s', esc_url( $base . $params ), $map );
 }
 
 add_shortcode( 'poi', function( $p ) {
