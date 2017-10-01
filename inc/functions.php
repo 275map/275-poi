@@ -57,16 +57,6 @@ add_action( 'rest_api_init', function() {
 		'schema' => null,
 		)
 	);
-
-	register_rest_field( 'map', 'geojson', array(
-		'get_callback' => function( $object ) {
-			$meta = get_post_meta( $object['id'], 'geo', true );
-
-			return $meta['geojson'];
-		},
-		'schema' => null,
-		)
-	);
 } );
 
 function poi_get_single_map( $post_id ) {
@@ -96,52 +86,8 @@ EOL;
 }
 
 function poi_get_map( $post_id ) {
-	$meta = get_post_meta( $post_id, 'geo', true );
-	if ( ! $meta ) {
-		return;
-	}
-
-	$path = esc_url( plugins_url( 'tags', dirname( __FILE__ ) ) );
-	$lat = esc_attr( $meta['lat'] );
-	$lng = esc_attr( $meta['lng'] );
-	$zoom = esc_attr( $meta['zoom'] );
-	$geojson = esc_attr( $meta['geojson'] );
-
-	$endpoint = home_url() . "/wp-json/wp/v2/poi?_embed";
-
-	$geojson = sprintf(
-		home_url() . "/wp-json/wp/v2/map/%s",
-		$post_id
-	);
-
-	$terms = get_the_terms( $post_id, 'team' );
-	$team_query = '';
-	if ( $terms && is_array( $terms ) ) {
-		$term_list = array();
-		foreach ( $terms as $t ) {
-			$term_list[] = $t->slug;
-		}
-		$team_query = join( ',', $term_list );
-	}
-
-	$terms = get_the_terms( $post_id, 'poi-category' );
-	$term_query = '';
-	if ( $terms && is_array( $terms ) ) {
-		$term_list = array();
-		foreach ( $terms as $t ) {
-			$term_list[] = $t->slug;
-		}
-		$term_query = join( ',', $term_list );
-	} else {
-		return '<p style="color: #ff0000;">POI カテゴリーを最低でもひとつは選択してください。</p>';
-	}
-
-	$map =<<<EOL
-		<div style="width: 100%; height: 300px; margin: 1em 0;"><osm data-lat="{$lat}" data-lng="{$lng}" data-zoom="{$zoom}" data-end-point="{$endpoint}" data-geo-json="{$geojson}" data-team="{$team_query}" data-term="{$term_query}"></osm></div>
-		<script src="{$path}/osm.tag" type="riot/tag"></script>
-EOL;
-
-	return $map;
+	global $geometry;
+	return $geometry->get_map( $post_id );
 }
 
 function poi_get_street_view( $post_id ) {
@@ -201,7 +147,7 @@ function poi_load_js() {
 	wp_enqueue_script(
 		'app',
 		plugins_url( 'js/app.js', dirname( __FILE__ ) ),
-		array( 'jquery', 'riot', 'leaflet' ),
+		array( 'jquery', 'custom-field-geometry' ),
 		false,
 		true
 	);

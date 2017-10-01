@@ -30,7 +30,7 @@ $map->add( 'poi' );
 $map = new Color_Marker( 'marker-color', 'Marker' );
 $map->add( 'poi' );
 
-$map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
+$geometry = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 	'priority' => 'high',
 	'lat' => 0,
 	'lng' => 0,
@@ -49,7 +49,7 @@ $map = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 		'marker' => false,
 	),
 ) );
-$map->add( 'map' );
+$geometry->add( 'map' );
 
 add_action( 'wp_enqueue_scripts', 'poi_load_js' );
 
