@@ -91,10 +91,10 @@ add_shortcode( 'poi', function( $p ) {
 	return poi_get_map( $post_id );
 } );
 
-add_action( 'plugins_loaded', function() {
+add_action( 'init', function() {
 	wp_embed_register_handler(
-		'pois',
-		'#' . home_url(). '/archives/map/.*/?$#i',
+		'maps',
+		'#' . untrailingslashit( get_post_type_archive_link( 'map' ) ) . '/.+$#',
 		function( $m, $attr, $url, $rattr ) {
 			$image = plugins_url( 'img/map.png', dirname( __FILE__ ) );
 			$post_id = url_to_postid( $url );
@@ -108,7 +108,7 @@ add_action( 'plugins_loaded', function() {
 
 	 wp_embed_register_handler(
 		'poi',
-		'#' . home_url(). '/archives/poi/.*/?$#i',
+		'#' . untrailingslashit( get_post_type_archive_link( 'map' ) ) . '/.+$#',
 		function( $m, $attr, $url, $rattr ) {
 			$image = plugins_url( 'img/map.png', dirname( __FILE__ ) );
 			$post_id = url_to_postid( $url );
