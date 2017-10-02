@@ -68,6 +68,10 @@ function poi_get_map( $post_id ) {
 }
 
 function poi_get_street_view( $post_id ) {
+	if ( ! defined( 'G_API_KEY' ) ) {
+		return;
+	}
+
 	$meta = get_post_meta( $post_id, 'poi', true );
 	if ( ! $meta ) {
 		return;
