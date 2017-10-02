@@ -200,7 +200,7 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 	$message .= __('パスワードを設定するには以下のアドレスにアクセスしてください。') . "\r\n";
 	$message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . ">\r\n\r\n";
 
-	$message .= "パスワードの設定が完了したら以下の URL からログインしてください。";
+	$message .= "パスワードの設定が完了したら以下の URL からログインしてください。\r\n";
 	$message .= wp_login_url() . "\r\n";
 
 	wp_mail($user->user_email, sprintf(__('[%s] ユーザー登録のご案内について'), $blogname), $message);
