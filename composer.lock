@@ -86,12 +86,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/custom-field-geometry.git",
-                "reference": "780bac4483aa058e90977d0af4bb0a6af4c9a37d"
+                "reference": "4f2b0e042ecaddec38304b652616aef9046ec2fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/custom-field-geometry/zipball/780bac4483aa058e90977d0af4bb0a6af4c9a37d",
-                "reference": "780bac4483aa058e90977d0af4bb0a6af4c9a37d",
+                "url": "https://api.github.com/repos/miya0001/custom-field-geometry/zipball/4f2b0e042ecaddec38304b652616aef9046ec2fa",
+                "reference": "4f2b0e042ecaddec38304b652616aef9046ec2fa",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                     "email": "miya0001@users.noreply.github.com"
                 }
             ],
-            "time": "2017-10-02T07:45:19+00:00"
+            "time": "2017-10-02T20:27:47+00:00"
         },
         {
             "name": "miya/custom-field-map",
@@ -121,12 +121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/miya0001/custom-field-map.git",
-                "reference": "44564f587f023d2739b1e46c1c780561b2afa97a"
+                "reference": "5e4eb8fa1d902f57f654852ee03b1a376193f0bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miya0001/custom-field-map/zipball/44564f587f023d2739b1e46c1c780561b2afa97a",
-                "reference": "44564f587f023d2739b1e46c1c780561b2afa97a",
+                "url": "https://api.github.com/repos/miya0001/custom-field-map/zipball/5e4eb8fa1d902f57f654852ee03b1a376193f0bb",
+                "reference": "5e4eb8fa1d902f57f654852ee03b1a376193f0bb",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
                     "email": "miya0001@users.noreply.github.com"
                 }
             ],
-            "time": "2017-10-01T13:35:07+00:00"
+            "time": "2017-10-02T19:12:08+00:00"
         },
         {
             "name": "miya/gh-auto-updater",
