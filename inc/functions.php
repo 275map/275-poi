@@ -132,6 +132,12 @@ function poi_load_js() {
 	);
 
 	wp_enqueue_style( 'leaflet' );
+	wp_enqueue_style(
+		'275-poi',
+		plugins_url( 'css/style.css', dirname( __FILE__ ) ),
+		array( 'leaflet' ),
+		false
+	);
 }
 
 function poi_get_terms( $post_id ) {
