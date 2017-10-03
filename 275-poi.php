@@ -24,28 +24,30 @@ add_action( 'init', function() {
 	new \Miya\WP\GH_Auto_Updater( $plugin_slug, $gh_user, $gh_repo );
 } );
 
+$tiles = array(
+	array(
+		"name" => "Open Street Map",
+		"tile" => "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+		"attribution" => "OpenStreetMap Contributers",
+		"attribution_url" => "http://osm.org/copyright"
+	),
+	array(
+		"name" => "国土地理院 (標準)",
+		"tile" => "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
+		"attribution" => "国土地理院",
+		"attribution_url" => "http://osm.org/copyright"
+	),
+	array(
+		"name" => "国土地理院 (オルソ画像)",
+		"tile" => "https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg",
+		"attribution" => "国土地理院",
+		"attribution_url" => "http://osm.org/copyright"
+	)
+);
+
 $map = new \Miya\WP\Custom_Field\Map( 'poi', 'Map', array(
 	'priority' => 'high',
-	'tiles' => array(
-		array(
-			"name" => "Open Street Map",
-			"tile" => "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-			"attribution" => "OpenStreetMap Contributers",
-			"attribution_url" => "http://osm.org/copyright"
-		),
-		array(
-			"name" => "国土地理院 (標準)",
-			"tile" => "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
-			"attribution" => "国土地理院",
-			"attribution_url" => "http://osm.org/copyright"
-		),
-		array(
-			"name" => "国土地理院 (オルソ画像)",
-			"tile" => "https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg",
-			"attribution" => "国土地理院",
-			"attribution_url" => "http://osm.org/copyright"
-		)
-	),
+	'tiles' => $tiles,
 ) );
 $map->add( 'poi' );
 
@@ -57,26 +59,7 @@ $geometry = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 	'lat' => 0,
 	'lng' => 0,
 	'zoom' => 1,
-	'tiles' => array(
-		array(
-			"name" => "Open Street Map",
-			"tile" => "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-			"attribution" => "OpenStreetMap Contributers",
-			"attribution_url" => "http://osm.org/copyright"
-		),
-		array(
-			"name" => "国土地理院 (標準)",
-			"tile" => "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
-			"attribution" => "国土地理院",
-			"attribution_url" => "http://osm.org/copyright"
-		),
-		array(
-			"name" => "国土地理院 (オルソ画像)",
-			"tile" => "https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg",
-			"attribution" => "国土地理院",
-			"attribution_url" => "http://osm.org/copyright"
-		)
-	),
+	'tiles' => $tiles,
 	'controls' => array(
 		'circle' => false,
 		'circlemarker' => false,
