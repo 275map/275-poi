@@ -38,23 +38,23 @@ function rest_api_filter_add_filter_param( $args, $request ) {
 
 add_action( 'rest_api_init', function() {
 	register_rest_field( 'poi', 'poi', array(
-		'get_callback' => function( $object ) {
-			$meta = get_post_meta( $object['id'], 'poi', true );
-			$marker_color = get_post_meta( get_the_ID(), 'marker-color', true );
-			if ( ! $marker_color ) {
-				$marker_color = 'blue';
-			}
-			$images = Color_Marker::icon_images();
-			$marker = esc_url( $images[$marker_color] );
+			'get_callback' => function( $object ) {
+				$meta = get_post_meta( $object['id'], 'poi', true );
+				$images = Color_Marker::icon_images();
+				$tmeta = get_term_meta( $object['poi-category'][0], '__color', true );
+				if ( ! $tmeta ) {
+					$tmeta = 'blue';
+				}
+				$marker = esc_url( $images[ $tmeta ] );
 
-			return array(
-				'lat' => $meta['lat'],
-				'lng' => $meta['lng'],
-				'zoom' => $meta['zoom'],
-				'marker' => $marker,
-			);
-		},
-		'schema' => null,
+				return array(
+					'lat' => $meta['lat'],
+					'lng' => $meta['lng'],
+					'zoom' => $meta['zoom'],
+					'marker' => $marker,
+				);
+			},
+			'schema' => null,
 		)
 	);
 } );
