@@ -44,7 +44,7 @@ class Color_Marker
 		}
 		?>
     <tr class="form-field term-meta-text-wrap">
-        <th scope="row"><label for="term-meta-text"><?php _e( 'TERM META TEXT', 'text_domain' ); ?></label></th>
+        <th scope="row"><label for="term-meta-text">Color</label></th>
         <td><?php self::form( $term_id ); ?></td>
     </tr>
 		<?php
