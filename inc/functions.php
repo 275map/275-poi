@@ -62,6 +62,9 @@ add_action( 'rest_api_init', function() {
 function poi_get_single_map( $post_id ) {
 	$terms = get_the_terms( $post_id, 'poi-category' );
 	$color = get_term_meta( $terms[0]->term_id, '__color', true );
+	if ( empty( $color ) ) {
+		$color = 'blue';
+	}
 	$markers = Color_Marker::icon_images();
 	$marker = $markers[ $color ];
 	$script = '<script>var marker_color = "'.esc_url( $marker ).'";</script>';
