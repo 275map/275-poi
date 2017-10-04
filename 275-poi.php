@@ -51,9 +51,6 @@ $map = new \Miya\WP\Custom_Field\Map( 'poi', 'Map', array(
 ) );
 $map->add( 'poi' );
 
-$marker = new Color_Marker( 'marker-color', 'Marker' );
-$marker->add( 'poi' );
-
 $geometry = new \Miya\WP\Custom_Field\Geometry( 'geo', 'Map', array(
 	'priority' => 'high',
 	'lat' => 0,
