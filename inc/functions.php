@@ -108,7 +108,7 @@ add_action( 'init', function() {
 
 	 wp_embed_register_handler(
 		'poi',
-		'#' . untrailingslashit( get_post_type_archive_link( 'map' ) ) . '/.+$#',
+		'#' . untrailingslashit( get_post_type_archive_link( 'poi' ) ) . '/.+$#',
 		function( $m, $attr, $url, $rattr ) {
 			$image = plugins_url( 'img/map.png', dirname( __FILE__ ) );
 			$post_id = url_to_postid( $url );
