@@ -60,7 +60,13 @@ add_action( 'rest_api_init', function() {
 } );
 
 function poi_get_single_map( $post_id ) {
-	return $GLOBALS['map']->get_map( $post_id );
+	$terms = get_the_terms( $post_id, 'poi-category' );
+	$color = get_term_meta( $terms[0]->term_id, '__color', true );
+	$markers = Color_Marker::icon_images();
+	$marker = $markers[ $color ];
+	$script = '<script>var marker_color = "'.esc_url( $marker ).'";</script>';
+	return '<div class="single-map" data-marker="' . esc_url( $marker ) . '">'
+			 . $GLOBALS['map']->get_map( $post_id ) . '</div>';
 }
 
 function poi_get_map( $post_id ) {

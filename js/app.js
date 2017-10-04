@@ -156,3 +156,12 @@ if ( chk.length ) {
 		} );
 	} )
 }
+
+var single = document.querySelectorAll( '.single-map' );
+single.forEach( function( el ) {
+	var marker = el.getAttribute( 'data-marker' );
+	var icons = document.querySelectorAll( '.leaflet-marker-icon', el );
+	icons.forEach( function( icon ) {
+		icon.setAttribute( 'src', marker );
+	} );
+} );
