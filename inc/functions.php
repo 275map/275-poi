@@ -167,10 +167,17 @@ function poi_get_terms( $post_id ) {
 	if ( $terms ) {
 		$item = array();
 		foreach ( $terms as $term ) {
+			$images = Color_Marker::icon_images();
+			$color = get_term_meta( $term->term_id, '__color', true );
+			if ( ! $color ) {
+				$color = 'blue';
+			}
+			$marker = $images[ $color ];
 			$item[] = sprintf(
-				'<label><input type="checkbox" value="%1$s" checked> %2$s</label>',
+				'<label><input type="checkbox" value="%1$s" checked> <img style="height: 20px; width: auto;" src="%3$s" alt=""> %2$s</label>',
 				esc_attr( $term->slug ),
-				esc_html( $term->name )
+				esc_html( $term->name ),
+				esc_url( $marker )
 			);
 		}
 
