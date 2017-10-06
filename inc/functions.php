@@ -133,9 +133,16 @@ add_action( 'init', function() {
 
 function poi_load_js() {
 	wp_enqueue_script(
+		'leaflet-fullscreen',
+		'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',
+		array( 'jquery', 'custom-field-geometry' ),
+		false,
+		true
+	);
+	wp_enqueue_script(
 		'app',
 		plugins_url( 'js/app.js', dirname( __FILE__ ) ),
-		array( 'jquery', 'custom-field-geometry' ),
+		array( 'jquery', 'leaflet-fullscreen', 'custom-field-geometry' ),
 		false,
 		true
 	);
@@ -144,6 +151,12 @@ function poi_load_js() {
 	wp_enqueue_style(
 		'275-poi',
 		plugins_url( 'css/style.css', dirname( __FILE__ ) ),
+		array( 'leaflet' ),
+		false
+	);
+	wp_enqueue_style(
+		'leaflet-fullscreen',
+		'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css',
 		array( 'leaflet' ),
 		false
 	);

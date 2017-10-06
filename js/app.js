@@ -43,6 +43,12 @@ function add_layer( map ) {
 geometries.forEach( function( map ) {
 	add_layer( map );
 
+	// Create a new map with a fullscreen button:
+	map.fullscreenControl = true;
+
+	// or, add to an existing map:
+	map.addControl(new L.Control.Fullscreen());
+
 	var api = "/wp-json/wp/v2/map/" + map.postId + "?_embed";
 	jQuery.getJSON( api, function( data ) {
 		if ( ! data._embedded ) {
