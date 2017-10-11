@@ -11,6 +11,7 @@
           "inc/custom-post-type-map.php",
           "inc/custom-post-type-poi.php",
           "inc/custom-taxonomy-map-category.php",
+          "inc/custom-taxonomy-map-tags.php",
           "inc/custom-taxonomy-poi-category.php",
           "inc/custom-taxonomy-team.php",
           "inc/color-marker.php",
