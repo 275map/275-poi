@@ -78,3 +78,8 @@ add_filter( 'the_content', function( $content ) {
 
 	return $content;
 } );
+
+add_filter( 'rest_poi_collection_params', function( $params ) {
+	$params['per_page']['maximum'] = 200;
+	return $params;
+} );

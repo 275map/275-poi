@@ -74,7 +74,7 @@ geometries.forEach( function( map ) {
 				q.push( 'filter[' + name + ']=' + filters[name].join( ',' ) );
 			}
 
-			var api = '/wp-json/wp/v2/poi?per_page=100&_embed&' + q.join( '&' );
+			var api = '/wp-json/wp/v2/poi?per_page=200&_embed&' + q.join( '&' );
 			console.log(api);
 			jQuery.getJSON( api, function( data ) {
 				show_marker( map, data )
@@ -154,7 +154,7 @@ if ( chk.length ) {
 					q.push( 'filter[' + name + ']=' + filters[name].join( ',' ) );
 				}
 
-				var api = '/wp-json/wp/v2/poi?per_page=100&_embed&' + q.join( '&' );
+				var api = '/wp-json/wp/v2/poi?per_page=200&_embed&' + q.join( '&' );
 				jQuery.getJSON( api, function( data ) {
 					show_marker( map, data )
 				} );
